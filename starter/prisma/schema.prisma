@@ -1,0 +1,22 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Component {
+  id         BigInt              @id @default(autoincrement()) @db.BigInt
+  title      String
+  code       String              @db.Text
+  source     String
+  categories ComponentCategory[]
+}
+
+model ComponentCategory {
+  id         BigInt      @id @default(autoincrement()) @db.BigInt
+  name       String
+  components Component[]
+}
